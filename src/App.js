@@ -7,15 +7,15 @@ function App() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
 
-  useEffect(
-    () => async () => {
+  useEffect(() => {
+    const fetchData = async () => {
       const response = await axios.get(
         "https://api.coinstats.app/public/v1/coins?skip=0"
       );
-      setCoins(response.data.coins);
-    },
-    []
-  );
+      return setCoins(response.data.coins);
+    };
+    fetchData();
+  }, []);
 
   const filterCoins = coins.filter((coin) => {
     return coin.name.toLowerCase().includes(search.toLowerCase());
